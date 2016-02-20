@@ -7,7 +7,8 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
 
-export PYTHONPATH=$(realpath ..):$(realpath $(SPARK_HOME))/python
+# Specific for Spark 1.4.2, it may have to be changed.
+export PYTHONPATH=$(realpath ..):$(realpath $(SPARK_HOME))/python:$(realpath $(SPARK_HOME))/python/lib/py4j-0.8.2.1-src.zip
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -52,6 +53,7 @@ clean:
 	rm -rf $(BUILDDIR)/*
 
 html:
+	@echo $(PYTHONPATH)
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
